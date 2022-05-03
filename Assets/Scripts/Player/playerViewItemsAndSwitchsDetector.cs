@@ -17,6 +17,8 @@ public class playerViewItemsAndSwitchsDetector : MonoBehaviour
     private GameObject turnOnText;
     [SerializeField]
     private GameObject backgroundText;
+    [SerializeField]
+    private InventoryManagerAndWinCondition playerInventory;
 
     void FixedUpdate() {
         Debug.DrawRay(transform.position, transform.forward * sightRange, rayColor);
@@ -27,13 +29,14 @@ public class playerViewItemsAndSwitchsDetector : MonoBehaviour
                 backgroundText.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.F)) {
                     Destroy(detection.transform.gameObject);
+                    playerInventory.addItemAndCheckItemsAmount();
                 }
             }
             else if(detection.collider.tag == "SwitchOn") {
                 turnOffText.SetActive(true);
                 backgroundText.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.F)) {
-                    SwitchLight switchLight = detection.collider.gameObject.GetComponent<SwitchLight>();
+                    SwitchLight switchLight = detection.collider.gameObject.transform.parent.gameObject.GetComponent<SwitchLight>();
                     if (switchLight != null)
                         switchLight.switchLightOff();
                 }
@@ -42,7 +45,7 @@ public class playerViewItemsAndSwitchsDetector : MonoBehaviour
                 turnOnText.SetActive(true);
                 backgroundText.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.F)) {
-                    SwitchLight switchLight = detection.collider.gameObject.GetComponent<SwitchLight>();
+                    SwitchLight switchLight = detection.collider.gameObject.transform.parent.gameObject.GetComponent<SwitchLight>();
                     if (switchLight != null)
                         switchLight.switchLightOn();
                 }

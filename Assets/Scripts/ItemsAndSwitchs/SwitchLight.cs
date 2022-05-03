@@ -5,19 +5,27 @@ using UnityEngine;
 public class SwitchLight : MonoBehaviour
 {
     [SerializeField]
-    private Transform transformRotationPoint;
+    private List<GameObject> gameObjectSwitchs;
     [SerializeField]
-    private Light light;
+    private List<Light> lights;
 
     public void switchLightOn() {
-        transformRotationPoint.Rotate(new Vector3(40f, 0f, 0f));
-        light.intensity = 1;
-        transform.gameObject.tag = "SwitchOn";
+        foreach (var gameObjectSwitch in gameObjectSwitchs) {
+            gameObjectSwitch.transform.GetChild(0).gameObject.transform.Rotate(new Vector3(40f, 0f, 0f));
+            gameObjectSwitch.tag = "SwitchOn";
+        }
+        foreach (var light in lights) {
+            light.intensity = 1;
+        }
     }
 
     public void switchLightOff() {
-        transformRotationPoint.Rotate(new Vector3(-40f, 0f, 0f));
-        light.intensity = 0;
-        transform.gameObject.tag = "SwitchOff";
+        foreach (var gameObjectSwitch in gameObjectSwitchs) {
+            gameObjectSwitch.transform.GetChild(0).gameObject.transform.Rotate(new Vector3(-40f, 0f, 0f));
+            gameObjectSwitch.tag = "SwitchOff";
+        };
+        foreach (var light in lights) {
+            light.intensity = 0;
+        }
     }
 }
