@@ -7,6 +7,12 @@ TagManager:
   - Item
   - SwitchOn
   - SwitchOff
+  - Chaser
+  - Screamer
+  - Chaser
+  - ChargeBatteryZone
+  - NoMoveMonster
+  - JumpScare
   layers:
   - Default
   - TransparentFX

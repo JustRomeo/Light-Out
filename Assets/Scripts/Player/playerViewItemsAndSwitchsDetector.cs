@@ -23,7 +23,7 @@ public class playerViewItemsAndSwitchsDetector : MonoBehaviour
     void FixedUpdate() {
         Debug.DrawRay(transform.position, transform.forward * sightRange, rayColor);
 
-        if(Physics.Raycast(transform.position, transform.forward, out detection, sightRange)) {
+        if (Physics.Raycast(transform.position, transform.forward, out detection, sightRange)) {
             if(detection.collider.tag == "Item") {
                 pickUpText.SetActive(true);
                 backgroundText.SetActive(true);
@@ -32,7 +32,7 @@ public class playerViewItemsAndSwitchsDetector : MonoBehaviour
                     playerInventory.addItemAndCheckItemsAmount();
                 }
             }
-            else if(detection.collider.tag == "SwitchOn") {
+            else if (detection.collider.tag == "SwitchOn") {
                 turnOffText.SetActive(true);
                 backgroundText.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.F)) {
@@ -41,7 +41,7 @@ public class playerViewItemsAndSwitchsDetector : MonoBehaviour
                         switchLight.switchLightOff();
                 }
             }
-            else if(detection.collider.tag == "SwitchOff") {
+            else if (detection.collider.tag == "SwitchOff") {
                 turnOnText.SetActive(true);
                 backgroundText.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.F)) {

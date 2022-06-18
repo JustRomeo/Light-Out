@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MonsterSpawn : MonoBehaviour {
+    public AudioClip clip;
+    public float volume = 10;
 
     private float rspawn = 0;
     private float sspawn = 0;
@@ -14,6 +16,7 @@ public class MonsterSpawn : MonoBehaviour {
 
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        despawn();
     }
     void Update() {
         spawnmovement();
@@ -31,7 +34,7 @@ public class MonsterSpawn : MonoBehaviour {
         Vector3 deltapos = new Vector3(0, 0, 0);
 
         deltapos.x = Random.Range(player.position.x - 20, player.position.x + 20);
-        deltapos.y = player.position.y;
+        deltapos.y = 0; // player.position.y;
         deltapos.z = Random.Range(player.position.z - 20, player.position.z + 20);
         deltapos.x = deltapos.x < -4 ? -3 : (deltapos.x >  86 ?  85 : deltapos.x);
         deltapos.z = deltapos.z < -6 ? -5 : (deltapos.z > 102 ? 101 : deltapos.z);
@@ -43,8 +46,10 @@ public class MonsterSpawn : MonoBehaviour {
 
         GetComponent<NoMovementsScript>().reset();
         GetComponent<NoMovementsScript>().enabled = true;
+        AudioSource.PlayClipAtPoint(clip, transform.position, volume);
+        // GameObject.FindGameObjectWithTag("NoMoveMonster").GetComponent<Animator>().Play("Attack(1)");
     }
-    void despawn() {
+    public void despawn() {
         spawned = false;
         last_clock = Time.realtimeSinceStartup;
         rspawn = Random.Range(spawn_time[0], spawn_time[1]);
